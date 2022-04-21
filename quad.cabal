@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a8a42855a052cad043eed613283a0aa28b87b5725e5f14e1f2c12568343a88ff
+-- hash: 09d6f5a0e207ed6f127f199dd80670cc6d1eabb965a9f9a9941b01c89be3a08a
 
 name:           quad
 version:        0.0.0
@@ -14,6 +14,7 @@ library
   exposed-modules:
       Core
       Docker
+      Runner
       Socket
   other-modules:
       Paths_quad

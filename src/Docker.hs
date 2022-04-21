@@ -11,14 +11,22 @@ import qualified Socket
 data Service
   = Service
   { createContainer :: CreateContainerOptions -> IO ContainerId,
-    startContainer :: ContainerId -> IO ()
+    startContainer :: ContainerId -> IO (),
+    containerStatus :: ContainerId -> IO ContainerStatus
   }
+
+data ContainerStatus
+  = ContainerRunning
+  | ContainerExited ContainerExitCode
+  | ContainerOther Text
+  deriving (Eq, Show)
 
 createService :: IO Service
 createService = do
   pure Service
     { createContainer = createContainer_
     , startContainer = startContainer_
+    , containerStatus = containerStatus_
     }
 
 newtype ContainerId = ContainerId Text
@@ -90,3 +98,6 @@ startContainer_ container = do
           & HTTP.setRequestPath (encodeUtf8 path)
           & HTTP.setRequestMethod "POST"
   void $ HTTP.httpBS req
+
+containerStatus_ :: ContainerId -> IO ContainerStatus
+containerStatus_ = undefined
